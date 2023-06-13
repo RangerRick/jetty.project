@@ -53,13 +53,16 @@ Project documentation is available on the Eclipse Jetty website.
 
 # Building
 
-[Apache Maven](https://maven.apache.org/) and [OpenJDK](https://adoptium.net/) requirements:
+[Apache Maven 3.9.2](https://maven.apache.org/) and [OpenJDK](https://adoptium.net/) requirements:
 
 | Branch         | Maven Version | Minimum JDK | Recommended JDK                                              |
 |----------------|---------------|-------------|--------------------------------------------------------------|
 | `jetty-10.0.x` | Maven 3.8.6+  | OpenJDK 11  | OpenJDK 17 (for optional virtual threads and HTTP/3 support) |
 | `jetty-11.0.x` | Maven 3.8.6+  | OpenJDK 11  | OpenJDK 17 (for optional virtual threads and HTTP/3 support) |
-| `jetty-12.0.x` | Maven 3.8.6+  | OpenJDK 17  | OpenJDK 17                                                   |
+| `jetty-12.0.x` | Maven 3.8.6+  | OpenJDK 17  | OpenJDK 19 (for optional quic using foreign memory)          |
+
+
+
 
 ## Full Build 
 
@@ -70,6 +73,13 @@ mvn clean install
 ```
 
 Note: There are stress tests that on some hardware or operative system require to set the file descriptor limit to a value greater than 2048 to pass successfully (check your `ulimit -n` value).
+
+Maven Build Cache
+
+Per default, the build is using the [Maven Build Cache extension](https://maven.apache.org/extensions/maven-build-cache-extension/)
+this means you will use your local build cache, To disable it you can use the property
+```shell
+mvn clean install -Dmaven.build.cache.enabled=false
 
 Note: The tests are running in parallel using [Junit5 parallel execution](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parallel-execution).
 This is configurable using the following properties:
